@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Контроллер для работы с Excel-файлами
  */
-
 @Tag(name = "ExcelController", description = "Контроллер для работы с Excel-файлами")
 @RestController
 @RequestMapping("/api/v1/excel")
