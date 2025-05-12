@@ -1,20 +1,13 @@
 package dev.makeev.xlsxreader.service.impl;
 
 import dev.makeev.xlsxreader.service.ExcelService;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import static dev.makeev.xlsxreader.utils.ExcelReader.readNumbersFromExcel;
 
 @Service
 public class ExcelServiceImpl implements ExcelService {
@@ -29,27 +22,6 @@ public class ExcelServiceImpl implements ExcelService {
             throw new IllegalArgumentException("Файл не содержит чисел");
         }
         return findNthSmallest(numbers, n);
-    }
-
-    private List<Integer> readNumbersFromExcel(String filePath) {
-        List<Integer> numbers = new ArrayList<>();
-        try (FileInputStream fis = new FileInputStream(filePath);
-             Workbook workbook = new XSSFWorkbook(fis)) {
-            Sheet sheet = workbook.getSheetAt(0);
-            for (Row row : sheet) {
-                Cell cell = row.getCell(0);
-                if (cell == null) continue;
-
-                String number = cell.toString().trim();
-                if (!number.isEmpty()) {
-                    numbers.add((int) Double.parseDouble(number));
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(numbers.size());
-        return numbers;
     }
 
     private int findNthSmallest(List<Integer> numbers, int n) {
