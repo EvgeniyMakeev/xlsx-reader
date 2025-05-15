@@ -30,7 +30,6 @@ public class ExcelReader {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(numbers.size());
         return numbers;
     }
 }
